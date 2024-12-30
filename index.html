@@ -20,6 +20,17 @@
     .hidden {
       display: none;
     }
+
+    dialog[open] {
+      opacity: 1;
+    }
+
+    dialog {
+      opacity: 0;
+      transition:
+        opacity 0.7s ease-out;
+    }
+      
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -41,12 +52,25 @@
       <canvas id="game-canvas"></canvas>
     </feature>
 
+    <dialog id="instructions" class="modal">
+      <h1>Keep Calm...</h1>
+      <p>Our ship has entered a strange asteroid cluster, but don't worry, our force shield should keep our ship intact.</p>
+      <p>Use WASD to manouver the ship, and use the space bar to fire projectiles at the asteroids to deflect them.</p>
+      <p>Just remember not to let our speedometer go above 10km/s, or our navigation will fail and we'll be lost in space for ever!</p>
+      <form method="dialog">
+        <button onclick="window.startGame()">Start</button>
+      </form>
+    </dialog>
+
     <script>
-      var canvasEl = document.getElementById("game-canvas");
-      var shipImage = document.getElementById("ship_image");
+      const modal = document.getElementById("instructions");
+      modal.showModal()
+
+      const canvasEl = document.getElementById("game-canvas");
+      const shipImage = document.getElementById("ship_image");
       canvasEl.width = $( window ).width();
       canvasEl.height = $( window ).height();
-      var gameView = new Sassteroids.GameView(canvasEl, shipImage);
+      const gameView = new Sassteroids.GameView(canvasEl, shipImage);
       gameView.start();
     </script>
   </body>
